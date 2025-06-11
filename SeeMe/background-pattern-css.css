@@ -1,0 +1,191 @@
+/* Animated Geometric Background Pattern CSS
+   Copy this CSS and the HTML structure below to use in your project */
+
+/* Background container with gradients */
+.geometric-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(40, 40, 60, 0.6) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(50, 50, 70, 0.6) 0%, transparent 40%),
+        radial-gradient(circle at 10% 90%, rgba(30, 30, 50, 0.5) 0%, transparent 50%),
+        linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1f1f1f 100%);
+    z-index: -1;
+}
+
+/* Pattern container */
+.pattern-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3; /* Adjust opacity as needed */
+}
+
+/* Base shape styles */
+.shape {
+    position: absolute;
+    animation-duration: 20s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+/* Rods (lines) */
+.rod {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation-name: pulse;
+}
+
+/* Cards (rectangles) */
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    animation-name: float;
+}
+
+/* Circles */
+.circle {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation-name: orbit;
+}
+
+/* Hexagons */
+.hexagon {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 15px / 12px;
+    animation-name: spin;
+}
+
+.hexagon::before,
+.hexagon::after {
+    content: "";
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    background: inherit;
+    border: inherit;
+    top: -1px;
+    left: -1px;
+}
+
+.hexagon::before {
+    transform: rotate(60deg);
+}
+
+.hexagon::after {
+    transform: rotate(-60deg);
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 0.2; 
+        transform: translateX(0) rotate(var(--rotation, 0deg)); 
+    }
+    50% { 
+        opacity: 0.4; 
+        transform: translateX(10px) rotate(var(--rotation, 0deg)); 
+    }
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translate(0, 0) rotate(var(--rotation, 0deg)) scale(1); 
+    }
+    25% { 
+        transform: translate(15px, -15px) rotate(calc(var(--rotation, 0deg) + 10deg)) scale(1.05); 
+    }
+    50% { 
+        transform: translate(-10px, 10px) rotate(calc(var(--rotation, 0deg) - 5deg)) scale(0.95); 
+    }
+    75% { 
+        transform: translate(5px, 5px) rotate(calc(var(--rotation, 0deg) + 15deg)) scale(1.02); 
+    }
+}
+
+@keyframes orbit {
+    0%, 100% { 
+        transform: translate(0, 0) scale(1); 
+        opacity: 0.3; 
+    }
+    33% { 
+        transform: translate(20px, -20px) scale(1.1); 
+        opacity: 0.5; 
+    }
+    66% { 
+        transform: translate(-20px, 20px) scale(0.9); 
+        opacity: 0.3; 
+    }
+}
+
+@keyframes spin {
+    0% { 
+        transform: translate(0, 0) rotate(0deg); 
+    }
+    100% { 
+        transform: translate(0, 0) rotate(360deg); 
+    }
+}
+
+/* Utility classes for random positioning */
+.shape-1 { top: 5%; left: 10%; animation-delay: 0s; }
+.shape-2 { top: 15%; left: 80%; animation-delay: 1s; }
+.shape-3 { top: 50%; left: 20%; animation-delay: 2s; }
+.shape-4 { top: 75%; left: 65%; animation-delay: 3s; }
+.shape-5 { top: 35%; left: 45%; animation-delay: 4s; }
+.shape-6 { top: 10%; left: 55%; animation-delay: 5s; }
+.shape-7 { top: 65%; left: 85%; animation-delay: 6s; }
+.shape-8 { top: 25%; left: 95%; animation-delay: 7s; }
+.shape-9 { top: 90%; left: 40%; animation-delay: 8s; }
+.shape-10 { top: 45%; left: 5%; animation-delay: 9s; }
+
+/* Size variations */
+.size-sm { width: 50px; height: 50px; }
+.size-md { width: 80px; height: 80px; }
+.size-lg { width: 120px; height: 120px; }
+
+/* For rods, override height */
+.rod.size-sm { width: 2px; height: 150px; }
+.rod.size-md { width: 3px; height: 180px; }
+.rod.size-lg { width: 4px; height: 220px; }
+
+/* For hexagons, maintain aspect ratio */
+.hexagon.size-sm { width: 50px; height: 44px; }
+.hexagon.size-md { width: 80px; height: 70px; }
+.hexagon.size-lg { width: 100px; height: 88px; }
+
+/* 
+HTML Structure Example:
+
+<div class="geometric-background">
+    <div class="pattern-container">
+        <!-- Rods -->
+        <div class="shape rod size-sm shape-1" style="--rotation: -20deg;"></div>
+        <div class="shape rod size-md shape-2" style="--rotation: 35deg;"></div>
+        
+        <!-- Cards -->
+        <div class="shape card size-md shape-3" style="--rotation: 40deg;"></div>
+        <div class="shape card size-lg shape-4" style="--rotation: -15deg;"></div>
+        
+        <!-- Circles -->
+        <div class="shape circle size-sm shape-5"></div>
+        <div class="shape circle size-md shape-6"></div>
+        
+        <!-- Hexagons -->
+        <div class="shape hexagon size-md shape-7"></div>
+        <div class="shape hexagon size-lg shape-8"></div>
+    </div>
+</div>
+
+Your content goes here...
+*/
